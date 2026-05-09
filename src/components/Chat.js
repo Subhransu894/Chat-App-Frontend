@@ -69,18 +69,23 @@ export const Chat = ({ user }) => {
   }, [currentChat,user.username]);
 
   //read messages
-  useEffect(()=>{
-    const handleRead=({sender,receiver})=>{
-       console.log("📩 RECEIVED messages_read", sender, receiver);
-      // if YOU are the sender and current chat matches
-      if(sender === currentChat && receiver === user.username){
-        setMessages(prev=> prev.map(msg => msg.sender === sender && msg.status !== "read" ? {...msg , status: "read"} : msg))
+  useEffect(() => {
+    const handleRead = ({ sender, receiver }) => {
+      if (sender === user.username && receiver === currentChat) {
+        setMessages((prev) =>
+          prev.map((msg) =>
+            // update only messages that this client sent to that receiver
+            msg.sender === user.username && msg.receiver === receiver && msg.status !== "read"
+              ? { ...msg, status: "read" }
+              : msg
+          )
+        );
       }
-    }
-      socket.on("messages_read",handleRead)
+    };
 
-      return ()=>socket.off("messages_read",handleRead)
-  },[currentChat,user.username])
+    socket.on("messages_read", handleRead);
+    return () => socket.off("messages_read", handleRead);
+  }, [currentChat, user.username]);
 
   const fetchMessages = async (receiver) => {
     try {
