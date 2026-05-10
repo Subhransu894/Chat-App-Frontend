@@ -5,7 +5,7 @@ import MessageList from "./MessageList";
 import "./chat.css";
 import EmojiPicker from "emoji-picker-react";
 
-const socket = io("https://chat-app-backend-omega-lovat.vercel.app");
+const socket = io("https://chat-app-backend-omega-lovat.vercel.app",{transports:["websocket"]});
 
 export const Chat = ({ user }) => {
   const [users, setUsers] = useState([]);
