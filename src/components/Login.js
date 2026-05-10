@@ -7,7 +7,7 @@ const Login = ({ setUser }) => {
 
   const handleLogin = async () => {
     try {
-      const { data } = await axios.post("http://localhost:5001/auth/login", {
+      const { data } = await axios.post("https://your-frontend.vercel.app/auth/login", {
         username,
         password,
       });
