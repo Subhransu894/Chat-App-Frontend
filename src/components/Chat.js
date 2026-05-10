@@ -31,7 +31,7 @@ export const Chat = ({ user }) => {
     // Fetch all users excluding the current user
     const fetchUsers = async () => {
       try {
-        const { data } = await axios.get("https://your-frontend.vercel.app/users", {
+        const { data } = await axios.get("https://chat-app-backend-omega-lovat.vercel.app/users", {
           params: { currentUser: user.username },
         });
         setUsers(data);
@@ -50,7 +50,7 @@ export const Chat = ({ user }) => {
         // mark as read if chat is open
         if( data.sender === currentChat ){
           try {
-            await axios.put("https://your-frontend.vercel.app/messages/read",{
+            await axios.put("https://chat-app-backend-omega-lovat.vercel.app/messages/read",{
               sender:currentChat,
               receiver: user.username
             })
@@ -90,7 +90,7 @@ export const Chat = ({ user }) => {
   const fetchMessages = async (receiver) => {
     try {
       //fetch updated messages
-      const { data } = await axios.get("https://your-frontend.vercel.app/messages", {
+      const { data } = await axios.get("https://chat-app-backend-omega-lovat.vercel.app/messages", {
         params: { sender: user.username, receiver },
       });
 
@@ -98,12 +98,12 @@ export const Chat = ({ user }) => {
       setCurrentChat(receiver);
 
       //mark as read
-      await axios.put("https://your-frontend.vercel.app/messages/read",{
+      await axios.put("https://chat-app-backend-omega-lovat.vercel.app/messages/read",{
           sender: receiver,
           receiver: user.username,
       })
       //fetch again
-      const updated = await axios.get("https://your-frontend.vercel.app/messages",{
+      const updated = await axios.get("https://chat-app-backend-omega-lovat.vercel.app/messages",{
          params:{ sender: user.username, receiver}
       })
       setMessages(updated.data)

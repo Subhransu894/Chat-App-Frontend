@@ -7,7 +7,7 @@ const Login = ({ setUser }) => {
 
   const handleLogin = async () => {
     try {
-      const { data } = await axios.post("https://your-frontend.vercel.app/auth/login", {
+      const { data } = await axios.post("https://chat-app-backend-omega-lovat.vercel.app/auth/login", {
         username,
         password,
       });

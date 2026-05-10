@@ -8,7 +8,7 @@ const Register = ({ setUser }) => {
 
   const handleRegister = async () => {
     try {
-      const { data } = await axios.post("https://your-frontend.vercel.app/auth/register", {
+      const { data } = await axios.post("https://chat-app-backend-omega-lovat.vercel.app/auth/register", {
         username,
         password,
       });
