@@ -5,7 +5,7 @@ import MessageList from "./MessageList";
 import "./chat.css";
 import EmojiPicker from "emoji-picker-react";
 
-const socket = io("https://chat-app-backend-omega-lovat.vercel.app",{
+const socket = io("https://chat-app-backend-ubj3.onrender.com",{
   transports:["websocket","polling"]
 });
 
@@ -33,7 +33,7 @@ export const Chat = ({ user }) => {
     // Fetch all users excluding the current user
     const fetchUsers = async () => {
       try {
-        const { data } = await axios.get("https://chat-app-backend-omega-lovat.vercel.app/users", {
+        const { data } = await axios.get("https://chat-app-backend-ubj3.onrender.com/users", {
           params: { currentUser: user.username },
         });
         setUsers(data);
@@ -52,7 +52,7 @@ export const Chat = ({ user }) => {
         // mark as read if chat is open
         if( data.sender === currentChat ){
           try {
-            await axios.put("https://chat-app-backend-omega-lovat.vercel.app/messages/read",{
+            await axios.put("https://chat-app-backend-ubj3.onrender.com/messages/read",{
               sender:currentChat,
               receiver: user.username
             })
@@ -92,7 +92,7 @@ export const Chat = ({ user }) => {
   const fetchMessages = async (receiver) => {
     try {
       //fetch updated messages
-      const { data } = await axios.get("https://chat-app-backend-omega-lovat.vercel.app/messages", {
+      const { data } = await axios.get("https://chat-app-backend-ubj3.onrender.com/messages", {
         params: { sender: user.username, receiver },
       });
 
@@ -100,12 +100,12 @@ export const Chat = ({ user }) => {
       setCurrentChat(receiver);
 
       //mark as read
-      await axios.put("https://chat-app-backend-omega-lovat.vercel.app/messages/read",{
+      await axios.put("https://chat-app-backend-ubj3.onrender.com/messages/read",{
           sender: receiver,
           receiver: user.username,
       })
       //fetch again
-      const updated = await axios.get("https://chat-app-backend-omega-lovat.vercel.app/messages",{
+      const updated = await axios.get("https://chat-app-backend-ubj3.onrender.com/messages",{
          params:{ sender: user.username, receiver}
       })
       setMessages(updated.data)
